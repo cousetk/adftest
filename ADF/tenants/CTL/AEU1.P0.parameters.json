@@ -1,0 +1,384 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Prefix": {
+      "value": "AEU1"
+    },
+    "Environment": {
+      "value": "P"
+    },
+    "DeploymentID": {
+      "value": "0"
+    },
+    "Stage": {
+      "value": {
+        "RG": 1,
+        "RBAC": 1,
+        "PIM": 0,
+        "UAI": 1,
+        "SP": 0,
+        "KV": 1,
+        "OMS": 1,
+        "DASHBOARD": 0,
+        "OMSSolutions": 0,
+        "OMSDataSources": 0,
+        "OMSUpdateWeekly": 0,
+        "OMSUpdateMonthly": 0,
+        "SA": 1,
+        "ACR": 1,
+        "RSV": 0,
+        "NSG": 1,
+        "NetworkWatcher": 1,
+        "FlowLogs": 1,
+        "VNet": 1,
+        "DNSResolver": 0,
+        "VNetDDOS": 0,
+        "VNetPeering": 0,
+        "DNSPrivateZone": 0,
+        "DNSPublicZone": 1,
+        "LinkPrivateDns": 0,
+        "PrivateLink": 0,
+        "BastionHost": 0,
+        "RT": 0,
+        "FW": 0,
+        "VNGW": 0,
+        "NATGW": 0,
+        "ERGW": 0,
+        "ADPrimary": 0,
+        "ADSecondary": 0,
+        "SetExternalDNS": 0,
+        "SetInternalDNS": 0,
+        "CloudTestAccount": 0,
+        "CloudTestImages": 0,
+        "CloudTestHostedPool": 0
+      }
+    },
+    "Extensions": {
+      "value": {
+        "MonitoringAgent": 0,
+        "IaaSDiagnostics": 0,
+        "DependencyAgent": 0,
+        "AzureMonitorAgent": 0,
+        "GuestHealthAgent": 0,
+        "VMInsights": 0,
+        "AdminCenter": 0,
+        "BackupWindowsWorkloadSQL": 0,
+        "DSC": 0,
+        "GuestConfig": 0,
+        "Scripts": 0,
+        "MSI": 0,
+        "CertMgmt": 0,
+        "DomainJoin": 0,
+        "AADLogin": 0,
+        "Antimalware": 0,
+        "VMSSAzureADEnabled": 0,
+        "SqlIaasExtension": 0,
+        "AzureDefender": 0
+      }
+    },
+    "DeploymentInfo": {
+      "value": {
+        "uaiInfo": [
+          {
+            "name": "DNSZoneManager",
+            "RBAC": []
+          },
+          {
+            "Name": "CertificatePolicy",
+            "RBAC": [
+              {
+                "Name": "Key Vault Administrator"
+              }
+            ]
+          }
+        ],
+        "rolesInfo": [
+          {
+            "Name": "brwilkinson",
+            "RBAC": [
+              {
+                "Name": "Key Vault Administrator"
+              }
+            ]
+          }
+        ],
+        "SPInfo": [
+          {
+            "Name": "ADO_{ADOProject}_{RGNAME}",
+            "RBAC": [
+              {
+                "Name": "Contributor" // Add below on top of this just in case there was a way to replace Contributor
+              },
+              {
+                "Name": "Reader and Data Access",
+                "RG": "G1",
+                "Prefix": "ACU1",
+                "Tenant": "HUB"
+              },
+              {
+                "Name": "Storage Account Key Operator Service Role",
+                "RG": "G1",
+                "Prefix": "ACU1",
+                "Tenant": "HUB"
+              },
+              {
+                "Name": "Log Analytics Contributor",
+                "RG": "G1",
+                "Prefix": "ACU1",
+                "Tenant": "HUB"
+              }
+            ]
+          }
+        ],
+        "SubnetInfo": [ // 8 * /27 + 3 * /23
+          {
+            "name": "snDNS01",
+            "prefix": "0/27",
+            "NSG": 1,
+            "FlowLogEnabled": 1,
+            "FlowAnalyticsEnabled": 1,
+            "delegations": "Microsoft.Network/dnsResolvers"
+          }
+          // {
+          //   "name": "snAD01",
+          //   "prefix": "32/27",
+          //   "NSG": 1,
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "snMT02",
+          //   "prefix": "64/27",
+          //   "NSG": 1,
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "snMT03",
+          //   "prefix": "96/27",
+          //   "NSG": 1,
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1,
+          //   "delegations": "Microsoft.ContainerInstance/containerGroups"
+          // },
+          // {
+          //   "name": "GatewaySubnet",
+          //   "prefix": "128/26",
+          //   "NSG": 0,
+          //   "Route": 0, //1
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "AzureBastionSubnet",
+          //   "prefix": "192/26",
+          //   "NSG": 1,
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "AzureFirewallSubnet",
+          //   "prefix": "0/24",
+          //   "NSG": 0,
+          //   "Route": 0,
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "snFE01",
+          //   "prefix": "0/23",
+          //   "NSG": 1,
+          //   "Route": 0, //1
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "snMT01",
+          //   "prefix": "0/23",
+          //   "NSG": 1,
+          //   "Route": 0, //1
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // },
+          // {
+          //   "name": "snMT02",
+          //   "prefix": "0/23",
+          //   "NSG": 1,
+          //   "Route": 0, //1
+          //   "FlowLogEnabled": 1,
+          //   "FlowAnalyticsEnabled": 1
+          // }
+        ],
+        "DNSPublicZoneInfo": [
+          "aginow.net"
+        ],
+        "DNSResolverInfo": {
+          "name": "01",
+          "SN": "snDNS01"
+          // "PrivateIP": "10" // not supported at this time default to .4
+        },
+        "networkWatcherInfo": {
+          "name": "networkwatcher"
+        },
+        "DNSPrivateZoneInfo": [
+          {
+            "linkDNS": 1,
+            "zone": "aginow.net",
+            "Autoregistration": false
+          },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.vaultcore.azure.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.azurewebsites.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.file.core.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.blob.core.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.queue.core.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.afs.azure.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.servicebus.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.database.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.azconfig.io",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.azurecr.io",
+          //   "Autoregistration": false
+          // },
+          {
+            "linkDNS": 1,
+            "zone": "privatelink.{region}.azmk8s.io",
+            "Autoregistration": false
+          }
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.mongo.cosmos.azure.com",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.documents.azure.com",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.redis.cache.windows.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.sql.azuresynapse.net",
+          //   "Autoregistration": false
+          // },
+          // {
+          //   "linkDNS": 1,
+          //   "zone": "privatelink.azure-api.net",
+          //   "Autoregistration": false
+          // }
+        ],
+        "saInfo": [
+          {
+            "name": "global",
+            "skuName": "Standard_RAGRS",
+            "allNetworks": 1,
+            "addRemoteManagementIPs": 0,
+            "largeFileSharesState": "Disabled",
+            "logging": {
+              "r": 0,
+              "w": 0,
+              "d": 1
+            },
+            "blobVersioning": 1,
+            "changeFeed": 1,
+            "softDeletePolicy": {
+              "enabled": 1,
+              "days": 7
+            },
+            "containers": [
+              {
+                "name": "source"
+              }
+            ]
+          },
+          {
+            "name": "diag",
+            "skuName": "Standard_LRS",
+            "allNetworks": 0,
+            "logging": {
+              "r": 0,
+              "w": 0,
+              "d": 1
+            },
+            "blobVersioning": 1,
+            "changeFeed": 1,
+            "softDeletePolicy": {
+              "enabled": 1,
+              "days": 7
+            }
+          }
+        ],
+        "KVInfo": [
+          {
+            "Name": "VLT01",
+            "skuName": "standard",
+            "softDelete": true,
+            "PurgeProtection": true,
+            "RbacAuthorization": true,
+            "allNetworks": 1, // Currently needed for Cert Management from DeploymentScripts
+            "_PrivateLinkInfo": [
+              {
+                "Subnet": "snMT02",
+                "groupID": "vault"
+              }
+            ]
+          }
+        ],
+        "ContainerRegistry": [
+          {
+            "Name": "global",
+            "SKU": "Basic",
+            "adminUserEnabled": true,
+            "_PrivateLinkInfo": [
+              {
+                "Subnet": "snMT02",
+                "groupID": "registry"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

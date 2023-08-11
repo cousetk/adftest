@@ -1,0 +1,72 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/ubuntu
+// https://containers.dev/implementors/spec/ 
+{
+  "name": "Ubuntu",
+  "remoteUser": "vscode",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "7.0",
+      "USERNAME": "vscode"
+    }
+  },
+  // "containerEnv": {
+  //   "USERNAME": "vscode"
+  // },
+	// "remoteEnv": {
+	// 	"USERNAME": "vscode"
+	// },
+  // "postCreateCommand": "echo Verifying postCreateCommand: ${USERNAME:-FAILURE}",
+	// "postStartCommand": "echo Verifying postStartCommand: ${USERNAME:-FAILURE}",
+	// "postAttachCommand": "echo Verifying postAttachCommand: ${USERNAME:-FAILURE}",
+  // "onCreateCommand": "",
+  // "userEnvProbe": "loginInteractiveShell",
+  "additionalProperties": {},
+  "mounts": [
+    "source=Azure_Context,target=/home/vscode/.Azure,type=volume",
+    "source=PowerShell_PSReadLine_History,target=/home/vscode/PowerShell_PSReadLine_History,type=volume"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli": "latest",
+    "ghcr.io/devcontainers/features/powershell": "latest",
+    "ghcr.io/devcontainers/features/node": "latest"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[PowerShell]": {
+          "editor.defaultFormatter": "ms-vscode.powershell",
+          "editor.formatOnPaste": false,
+          "editor.formatOnSave": true,
+          "editor.formatOnType": true,
+          "editor.snippetSuggestions": "inline"
+        },
+        "files.defaultLanguage": "PowerShell",
+        "powershell.powerShellDefaultVersion": "PowerShell",
+        "terminal.integrated.defaultProfile.linux": "pwsh",
+        "terminal.integrated.profiles.linux": {
+          "pwsh": {
+            "path": "/usr/bin/pwsh",
+            "icon": "terminal-powershell",
+            "args": [
+              "-nologo"
+              // "-noprofile"
+            ]
+          }
+        }
+      },
+      "extensions": [
+        "ms-vscode.azure-account",
+        "ms-vscode.powershell",
+        "msazurermtools.azurerm-vscode-tools",
+        "GitHub.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "oderwat.indent-rainbow",
+        "ms-azuretools.vscode-bicep",
+        "ms-dotnettools.csharp"
+      ]
+    }
+  }
+}
